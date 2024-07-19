@@ -9,7 +9,7 @@ import formatDate from '../../services/formatDate.js';
 
 
  export default function Autori() {
-  const API_URL = import.meta.env.URL || "http://localhost:5000";
+  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
   const { authorLogin  } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(1); // Pagina corrente

@@ -33,7 +33,7 @@ const Blog = () => {
   const { isLoggedIn } = useContext(AuthContext);
  // stato del modale
 
- const API_URL = import.meta.env.URL || "http://localhost:5000";
+ const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
   
 
 // stato del commento

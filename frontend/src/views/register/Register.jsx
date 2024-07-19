@@ -7,7 +7,7 @@ import fetchWithAuth from '../../services/fetchWithAuth';  // importo fetch per 
 export default function Register() {
   
   const navigate = useNavigate();
-  const API_URL = import.meta.env.URL || "http://localhost:5000";
+  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
   // dichiaro link standard
  const AUTHORS= "/authors";
 

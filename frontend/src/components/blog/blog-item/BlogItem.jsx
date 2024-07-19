@@ -9,7 +9,7 @@ import { AuthContext } from "../../AuthContext";
 
 
 const BlogItem = ({ title, cover, _id, author, blogs, setBlogs }) => {
-  const API_URL = import.meta.env.URL || "http://localhost:5000";
+  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
   //  console.log(author);
   
   const { authorLogin  } = useContext(AuthContext);

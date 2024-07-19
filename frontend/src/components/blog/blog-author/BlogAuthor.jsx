@@ -3,7 +3,7 @@ import { Col, Image, Row } from "react-bootstrap";
 
 const BlogAuthor = ({email}) => {
 
-  const API_URL = import.meta.env.URL || "http://localhost:5000";
+  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
   const [avatar, setAvatar] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

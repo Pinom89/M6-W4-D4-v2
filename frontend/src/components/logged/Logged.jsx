@@ -10,7 +10,7 @@ export default function Logged() {
 
   const { authorLogin, setAuthorLogin } = useContext(AuthContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  const API_URL = import.meta.env.URL || "http://localhost:5000";
+  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
   const navigate = useNavigate();
 
 

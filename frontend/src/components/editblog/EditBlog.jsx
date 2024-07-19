@@ -8,7 +8,7 @@ export default function EditBlog() {
 
     const { authorLogin } = useContext(AuthContext);
    
-    const API_URL = import.meta.env.URL || "http://localhost:5000";
+    const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
 
     const { id } = useParams();
     const navigate = useNavigate();
