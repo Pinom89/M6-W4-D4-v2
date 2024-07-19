@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../components/AuthContext.js";
 import fetchWithAuth from '../../services/fetchWithAuth';
 const NewBlogPost = () => {
-  const API_URL = import.meta.env.URL || "http://localhost:5000";
+  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
   const { authorLogin} = useContext(AuthContext);
-  const { isLoggedIn} = useContext(AuthContext);
   // console.log(authorLogin.email);
   // console.log(isLoggedIn);
   const navigate = useNavigate();
@@ -52,10 +51,8 @@ const NewBlogPost = () => {
     }
 
     try {
-        const response = await fetchWithAuth("${API_URL}/blogs", {
+        const response = await fetchWithAuth(`${API_URL}/blogs`, {
             method: "POST",
-         
-            
             body: formData, // Usa formData invece di JSON.stringify(newblog)
         });
         setNewblog(response);
