@@ -6,6 +6,8 @@ import passport from "../config/passportConfig.js";
 
 const router = express.Router(); // Crea un router Express
 
+// Definisci l'URL del frontend usando una variabile d'ambiente
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
  
 
@@ -67,7 +69,7 @@ router.post("/login", async (req, res) => {
         router.get(
             "/google/callback",
         // Passport tenta di autenticare l'utente con le credenziali Google
-        passport.authenticate("google", { failureRedirect: "/login" }),
+        passport.authenticate("google", { failureRedirect: `${FRONTEND_URL}/login` }),
          // Se l'autenticazione fallisce, l'utente viene reindirizzato alla pagina di login
          async (req, res) => {
              try {
@@ -78,12 +80,12 @@ router.post("/login", async (req, res) => {
 
              // Reindirizza l'utente al frontend, passando il token come parametro URL
        // Il frontend può quindi salvare questo token e usarlo per le richieste autenticate
-       res.redirect(`http://localhost:3000/login?token=${token}`);
+       res.redirect(`${FRONTEND_URL}/login?token=${token}`);
         } catch (error) {
                 // Se c'è un errore durante l'autenticazione, l'utente viene reindirizzato alla pagina di login
                 console.error("Errore nella generazione del token:", error);
                 // E reindirizziamo l'utente alla pagina di login con un messaggio di errore
-        res.redirect("/login?error=auth_failed");
+        res.redirect(`${FRONTEND_URL}/login?error=auth_failed`);
         }
  }
         );
