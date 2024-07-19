@@ -75,7 +75,7 @@ const handleRegisterInputChange = (e) => {
         },
         body: JSON.stringify(register),
       });
-      alert("sciamaninnnnnnn");
+      
       console.log('Risultato:', result);
     } catch (error) {
       console.error('Errore durante la registrazione:', error);
@@ -89,6 +89,7 @@ const handleRegisterInputChange = (e) => {
         password: "",
         avatar:""
       })
+      alert("sciamaninnnnnnn");
       navigate('/login');
     }
   };

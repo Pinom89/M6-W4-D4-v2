@@ -56,7 +56,6 @@ const NewBlogPost = () => {
             body: formData, // Usa formData invece di JSON.stringify(newblog)
         });
         setNewblog(response);
-        alert("Blog creato con successo");
         setNewblog({
             readTime: { value: '', unit: '' },
             category: '',
@@ -65,9 +64,7 @@ const NewBlogPost = () => {
             content: ''
         });
         setCoverFile(null); // Resetta anche il file di copertina
-        setTimeout(() => {
-            navigate("/");
-        }, 2000);
+        alert("Post creato con successo");
     } catch (err) {
         console.log("Errore nella creazione", err);
     } finally {
