@@ -8,10 +8,7 @@ export default function Register() {
   
   const navigate = useNavigate();
   const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
-  // dichiaro link standard
- const AUTHORS= "/authors";
 
- const FULL_API_URL = `${API_URL}${AUTHORS}`
 
  // dichiaro usestate per campi input tranne file
  const [register, setRegister] = useState({
@@ -70,7 +67,7 @@ const handleRegisterInputChange = (e) => {
     alert("Sono pronto a postare i dati"); 
 
     try {
-      const result = await fetchWithAuth(`${FULL_API_URL}` , {
+      const result = await fetchWithAuth(`${API_URL}/author`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
