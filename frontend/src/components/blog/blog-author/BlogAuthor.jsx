@@ -3,14 +3,14 @@ import { Col, Image, Row } from "react-bootstrap";
 
 const BlogAuthor = ({email}) => {
 
-
+  const API_URL = import.meta.env.URL || "http://localhost:5000";
   const [avatar, setAvatar] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchAuthorData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/authors?limit=100');
+        const response = await fetch(`${API_URL}/authors?limit=100`);
         const data = await response.json();
         setAvatar(data.authors || []); // Assicurati che sia sempre un array
         setIsLoading(false);

@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import './placeholder.css'; // Creeremo questo file CSS
 
-const PlaceHolderb = () => {
+const PlaceHolder = () => {
   return (
     <Card className="blog-card placeholder-card">
       <div className="placeholder-img pulse"></div>
@@ -20,4 +20,4 @@ const PlaceHolderb = () => {
   );
 };
 
-export default PlaceHolderb;
+export default PlaceHolder;

@@ -9,7 +9,7 @@ import formatDate from '../../services/formatDate.js';
 
 
  export default function Autori() {
-
+  const API_URL = import.meta.env.URL || "http://localhost:5000";
   const { authorLogin  } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(1); // Pagina corrente
@@ -25,7 +25,7 @@ import formatDate from '../../services/formatDate.js';
     useEffect(() => {
     const fetchAutori = async () => {
       try {
-        const data = await fetchWithAuth(`http://localhost:5000/authors?page=${currentPage}&limit=${limit}`);
+        const data = await fetchWithAuth(`${API_URL}/authors?page=${currentPage}&limit=${limit}`);
         setAutori(data.users);
         setTotalPages(data.totalPages);
       } catch (error) {
@@ -41,7 +41,7 @@ import formatDate from '../../services/formatDate.js';
         
   const cancellaAutore = async (id) => {
     try {
-        await fetchWithAuth(`http://localhost:5000/authors/${id}`, {
+        await fetchWithAuth(`${API_URL}/authors/${id}`, {
             method: "DELETE",
         });
         setAutori(autori.filter((autore) => autore._id !== id));

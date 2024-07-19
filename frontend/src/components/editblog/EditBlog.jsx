@@ -8,7 +8,7 @@ export default function EditBlog() {
 
     const { authorLogin } = useContext(AuthContext);
    
-    
+    const API_URL = import.meta.env.URL || "http://localhost:5000";
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function EditBlog() {
  useEffect(() => {
   const fetchBlog = async () => {
       try {
-          const data = await fetchWithAuth(`http://localhost:5000/blogs/${id}`);
+          const data = await fetchWithAuth(`${API_URL}/blogs/${id}`);
           setDateblog(data);
       } catch (err) {
           console.log("Errore nella richiesta", err);
@@ -53,7 +53,7 @@ const resetForm = () => {
 const editBlogid = async (e) => {
   e.preventDefault();
   try {
-      await fetchWithAuth(`http://localhost:5000/blogs/${id}`, {
+      await fetchWithAuth(`${API_URL}/blogs/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

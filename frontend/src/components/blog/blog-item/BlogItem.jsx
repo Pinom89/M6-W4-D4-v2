@@ -9,8 +9,8 @@ import { AuthContext } from "../../AuthContext";
 
 
 const BlogItem = ({ title, cover, _id, author, blogs, setBlogs }) => {
-
-  console.log(author);
+  const API_URL = import.meta.env.URL || "http://localhost:5000";
+  //  console.log(author);
   
   const { authorLogin  } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
@@ -18,7 +18,7 @@ const BlogItem = ({ title, cover, _id, author, blogs, setBlogs }) => {
 
   const cancellaBlog = async (id) => {
     try {
-      await fetchWithAuth(`http://localhost:5000/blogs/${id}`, {
+      await fetchWithAuth(`${API_URL}/blogs/${id}`, {
         method: "DELETE",
       });
 

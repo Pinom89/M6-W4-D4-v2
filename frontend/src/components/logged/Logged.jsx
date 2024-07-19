@@ -10,7 +10,7 @@ export default function Logged() {
 
   const { authorLogin, setAuthorLogin } = useContext(AuthContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-
+  const API_URL = import.meta.env.URL || "http://localhost:5000";
   const navigate = useNavigate();
 
 
@@ -18,23 +18,38 @@ export default function Logged() {
         // Controlla se esiste un token nel localStorage
         const checkLoginStatus = async () => {
           const token = localStorage.getItem('token');
+          if (token) {
+            try {
+              await
+              setIsLoggedIn(true);
+            } catch (error) {
+              console.error('Token non valido:', error);
+              localStorage.removeItem('token');
+              setIsLoggedIn(false);
+            }
+          } else {
+            setIsLoggedIn(false);
+          }
           setIsLoggedIn(!!token);
           console.log(isLoggedIn);
         };
     
         // Controlla lo stato di login all'avvio
         checkLoginStatus();
+
     
         // Aggiungi un event listener per controllare lo stato di login
         window.addEventListener('storage', checkLoginStatus);
-
+        // NEW! Evento per il cambio di stato
+        window.addEventListener("loginStateChange", checkLoginStatus);
        
        
 
     
         // Rimuovi l'event listener quando il componente viene smontato
         return () => {
-          window.removeEventListener('storage', checkLoginStatus);
+          window.removeEventListener("storage", checkLoginStatus);
+          window.removeEventListener("loginStateChange", checkLoginStatus);
         };
       }, [ isLoggedIn, setIsLoggedIn,navigate ]);
 
@@ -50,7 +65,7 @@ export default function Logged() {
        
         const fetchAuthor = async () => {
           try {
-            const userData = await fetchWithAuth('http://localhost:5000/auth/me');
+            const userData = await fetchWithAuth(`${API_URL}/auth/me`);
             setAuthorLogin(userData);
             console.log(userData);
       

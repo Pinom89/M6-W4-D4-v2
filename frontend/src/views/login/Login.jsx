@@ -13,8 +13,8 @@ export default function Login() {
     const location = useLocation(); //  Accedo ai parametri dell'URL corrente
 
 
-
-    const API_URL = "http://localhost:5000";
+    const API_URL = import.meta.env.URL || "http://localhost:5000";
+    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -87,7 +87,7 @@ export default function Login() {
 // Funzione per gestire il login con Google
 const handleGoogleLogin = () => {
     // Reindirizziamo l'utente all'endpoint del backend che inizia il processo di autenticazione
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = `${API_URL}/auth/google`;
 };  
 
     return (

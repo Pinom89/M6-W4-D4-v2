@@ -5,15 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../components/AuthContext.js";
 import fetchWithAuth from '../../services/fetchWithAuth';
 const NewBlogPost = () => {
-
+  const API_URL = import.meta.env.URL || "http://localhost:5000";
   const { authorLogin} = useContext(AuthContext);
   const { isLoggedIn} = useContext(AuthContext);
- console.log(authorLogin.email);
- console.log(isLoggedIn);
-const navigate = useNavigate();
+  // console.log(authorLogin.email);
+  // console.log(isLoggedIn);
+  const navigate = useNavigate();
 
-const [coverFile, setCoverFile] = useState(null);
-const [error, setError] = useState(false);
+  const [coverFile, setCoverFile] = useState(null);
+  const [error, setError] = useState(false);
 
   const [newblog, setNewblog] = useState({
     readTime: { value: 1, unit: 'minuti' },
@@ -31,7 +31,7 @@ const [error, setError] = useState(false);
   const creaBlog = async (e) => {
     e.preventDefault();
     
-    const formData = new FormData();
+  const formData = new FormData();
     
     // Aggiungi i campi del blog al FormData
     formData.append('readTime[value]', newblog.readTime.value);
@@ -52,7 +52,7 @@ const [error, setError] = useState(false);
     }
 
     try {
-        const response = await fetchWithAuth("http://localhost:5000/blogs", {
+        const response = await fetchWithAuth("${API_URL}/blogs", {
             method: "POST",
          
             

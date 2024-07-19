@@ -32,6 +32,8 @@ const Blog = () => {
   const { authorLogin } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
  // stato del modale
+
+ const API_URL = import.meta.env.URL || "http://localhost:5000";
   
 
 // stato del commento
@@ -48,7 +50,7 @@ const Blog = () => {
       const fetchBlog = async () => {
         const { id } = params;
         try {
-          const data = await fetchWithAuth(`http://localhost:5000/blogs/${id}`);
+          const data = await fetchWithAuth(`${API_URL}/blogs/${id}`);
           
           if (!data) {
             navigate("*");
@@ -97,7 +99,7 @@ const Blog = () => {
   // cancellazione commenti
   const deleteComment = async (id) => {
     try {
-      await fetchWithAuth(`http://localhost:5000/blogs/${blog._id}/comments/${id}`, {
+      await fetchWithAuth(`${API_URL}/blogs/${blog._id}/comments/${id}`, {
             method: "DELETE",
         });
         setComment(comment.filter((comment) => comment._id !== id));
@@ -112,7 +114,7 @@ const Blog = () => {
 const updateComment = async (e) => {
   e.preventDefault();
   try {
-      const data = await fetchWithAuth(`http://localhost:5000/blogs/${blog._id}/comments/${editComment._id}`, {
+      const data = await fetchWithAuth(`${API_URL}blogs/${blog._id}/comments/${editComment._id}`, {
           method: "PATCH",
           headers: {
               "Content-Type": "application/json",
@@ -139,7 +141,7 @@ const updateComment = async (e) => {
 const createComment = async (e) => {
   e.preventDefault();
   try {
-      const data = await fetchWithAuth(`http://localhost:5000/blogs/${blog._id}/comments`, {
+      const data = await fetchWithAuth(`${API_URL}/blogs/${blog._id}/comments`, {
           method: "POST",
           headers: {
               "Content-Type": "application/json",

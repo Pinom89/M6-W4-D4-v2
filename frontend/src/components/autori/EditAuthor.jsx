@@ -9,7 +9,7 @@ function EditAuthor({autori, setAutori, autore}) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const API_URL = import.meta.env.URL || "http://localhost:5000";
 
 
 // Stato per gestire l'utente in fase di modifica dell'autore
@@ -18,7 +18,7 @@ const [modificaAutore, setModificaAutore] = useState({nome:autore.nome, cognome:
   const modAutore = async (e) => {
     e.preventDefault();
     try {
-      const data = await fetchWithAuth(`http://localhost:5000/authors/${autore._id}`, {
+      const data = await fetchWithAuth(`${API_URL}/authors/${autore._id}`, {
       method: "PATCH",
       headers: {
       "Content-Type": "application/json",
