@@ -68,7 +68,7 @@ const handleRegisterInputChange = (e) => {
     alert("Sono pronto a postare i dati"); 
 
     try {
-      const result = await fetchWithAuth(`${API_URL}/${AUTHORS}` , {
+      const result = await fetchWithAuth(`${API_URL}${AUTHORS}` , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
