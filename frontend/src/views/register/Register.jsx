@@ -11,6 +11,8 @@ export default function Register() {
   // dichiaro link standard
  const AUTHORS= "/authors";
 
+ const FULL_API_URL = `${API_URL}${AUTHORS}`
+
  // dichiaro usestate per campi input tranne file
  const [register, setRegister] = useState({
   nome: "",
@@ -68,7 +70,7 @@ const handleRegisterInputChange = (e) => {
     alert("Sono pronto a postare i dati"); 
 
     try {
-      const result = await fetchWithAuth(`${API_URL}``${AUTHORS}` , {
+      const result = await fetchWithAuth(`${FULL_API_URL}` , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
