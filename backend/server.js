@@ -61,7 +61,7 @@ app.use(cors(corsOptions));
 
 
 // abilitato server per collegamento front-end
-app.use(cors());
+//app.use(cors());
 
 // Middleware per il parsing del corpo delle richieste JSON
 app.use(express.json());
