@@ -50,7 +50,7 @@ const Blog = () => {
     const fetchBlog = useCallback(async () => {
       const { id } = params;
       try {
-        const data = await fetchWithAuth(`http://localhost:5000/blogs/${id}`);
+        const data = await fetchWithAuth(`${API_URL}/blogs/${id}`);
         
         if (!data) {
           navigate("*");
