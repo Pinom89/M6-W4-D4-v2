@@ -31,7 +31,7 @@ export default function Logged() {
             setIsLoggedIn(false);
           }
           setIsLoggedIn(!!token);
-          console.log(isLoggedIn);
+          // console.log(isLoggedIn);
         };
     
         // Controlla lo stato di login all'avvio
@@ -67,7 +67,7 @@ export default function Logged() {
           try {
             const userData = await fetchWithAuth(`${API_URL}/auth/me`);
             setAuthorLogin(userData);
-            console.log(userData);
+          //  console.log(userData);
       
           } catch (error) {
             console.error('Errore nel recupero dei dati utente:', error);

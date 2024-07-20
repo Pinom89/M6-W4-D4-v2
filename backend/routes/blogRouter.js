@@ -144,20 +144,6 @@ router.delete("/:id", async (req, res) => {
 
 
 
-
-/*  router.delete("/:id", async (req, res, next) => {
-    try {
-      const deletedBlogPost = await BlogPosts.findByIdAndDelete(req.params.id);
-      if (!deletedBlogPost) {
-        return res.status(404).json({ message: "Blog post non trovato" });
-      }
-      res.json({ message: "Post eliminato con successo" });
-    } catch (err) {
-      next(err);
-    }
-  });*/
-
-
   router.patch("/:id/cover", cloudinaryUploader.single("cover"), async (req, res) => {
     try {
       if (!req.file) {
@@ -206,61 +192,50 @@ router.delete("/:id", async (req, res) => {
     }
   })
 
-  // blogPosts/:id/comments per creare nuovi commenti
+   // blogPosts/:id/comments per creare nuovi commenti
+
   router.post("/:id/comments", async (req, res) => {
     try {
       const blogPost = await BlogPosts.findById(req.params.id);
       if (!blogPost) {
         return res.status(404).json({ message: "Post non trovato" });
       }
+  
       const newComment = {
         name: req.body.name,
         email: req.body.email,
         comment: req.body.comment
       };
+  
       blogPost.comments.push(newComment);
       await blogPost.save();
-      res.status(201).json(newComment);
-
+  
       const htmlContent = `
-    <h1>Creazione eseguita</h1>
-    <p>Gentile ${newComment.name}, </p>
-    <p> sull'account ${newComment.email} è stata inserito un commento.</p>
-    <br>
-    <br>
-    <p>Per supporto contattare la seguente email: customersupport@blogposts.com</p>
-  `;
-
-   await sendEmail(
-    newComment.email,
-     // oggetto della email
-     "Il tuo commento è stato creato con successo",
-     htmlContent)
-
-
+        <h1>Creazione eseguita</h1>
+        <p>Gentile ${newComment.name}, </p>
+        <p> sull'account ${newComment.email} è stata inserito un commento.</p>
+        <br>
+        <br>
+        <p>Per supporto contattare la seguente email: customersupport@blogposts.com</p>
+      `;
+  
+      try {
+        await sendEmail(
+          newComment.email,
+          "Il tuo commento è stato creato con successo",
+          htmlContent
+        );
+      } catch (emailError) {
+        console.error("Errore durante l'invio dell'email:", emailError.message);
+        // Non facciamo nulla qui, permettiamo al codice di continuare
+      }
+  
+      res.status(201).json(newComment);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
   });
-
-  // Visualizzare un commento specifico di un singolo commento
-  router.get("/:id/comments/:commentId", async (req, res) =>{
-    try {
-      const blogPost= await BlogPosts.findById(req.params.id);
-      if (!blogPost) {
-        return res.status (404).json ({ message: "Post non trovato" });
-      }
-      const comment = blogPost.comments.id (req.params.commentId);
-      if (!comment) {
-        return res.status (404).json ({ message: "Commento non trovato" });
-      }
-      res.json (comment);
-    } catch (err) {
-      res.status (500).json ({ message: err.message });
-    };
-
-  });
-
+ 
 
   // Creo la patch per modificare un commento specifico di un singolo commento
   router.patch("/:id/comments/:commentId", async (req, res) => {

@@ -46,35 +46,37 @@ const Blog = () => {
 
     const [editComment, setEditComment] = useState({name: "", email: "", comment: ""});
 
-    useEffect(() => {
-      const fetchBlog = async () => {
-        const { id } = params;
-        try {
-          const data = await fetchWithAuth(`${API_URL}/blogs/${id}`);
-          
-          if (!data) {
-            navigate("*");
-            return;
-          }
-          setBlog(data);
-        } catch (error) {
-          console.log("Errore nella richiesta", error);
-          navigate("*"); // Reindirizza anche in caso di errore
-        } finally {
-          setLoading(false);
+
+    const fetchBlog = async () => {
+      const { id } = params;
+      try {
+        const data = await fetchWithAuth(`http://localhost:5000/blogs/${id}`);
+        
+        if (!data) {
+          navigate("*");
+          return;
         }
-      };
-    
+        setBlog(data);
+      } catch (error) {
+        console.log("Errore nella richiesta", error);
+        navigate("*"); // Reindirizza anche in caso di errore
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    useEffect(() => {
       fetchBlog();
-    }, [navigate, params, comment]);  // Dipendenze mantenute
+    }, [params.id]); 
+
   
 
   useEffect(() => {
     if (blog.comments) {
       setComment(blog.comments);
-     }
-  },[blog.comments]);
-  
+    }
+  }, [blog.comments, blog._id]);
+
 
   // creo una funzione che permette di salvare i valori presenti nell'input per creare un commento
   const handleInputChange = (e) => {
@@ -102,7 +104,7 @@ const Blog = () => {
       await fetchWithAuth(`${API_URL}/blogs/${blog._id}/comments/${id}`, {
             method: "DELETE",
         });
-        setComment(comment.filter((comment) => comment._id !== id));
+        fetchBlog();
         alert("Commento eliminato");
     } catch (error) {
         console.log("Errore nella cancellazione", error);
@@ -114,16 +116,16 @@ const Blog = () => {
 const updateComment = async (e) => {
   e.preventDefault();
   try {
-      const data = await fetchWithAuth(`${API_URL}blogs/${blog._id}/comments/${editComment._id}`, {
+      const data = await fetchWithAuth(`${API_URL}/blogs/${blog._id}/comments/${editComment._id}`, {
           method: "PATCH",
           headers: {
               "Content-Type": "application/json",
           },
           body: JSON.stringify(editComment),
       });
-      setComment(comment.map((commento) => commento._id === data.id ? data : commento));
       setEditComment({name: "", email: "", comment: ""});
       alert("Commento modificato");
+      fetchBlog();
       handleEditClose();
   } catch (error) {
       console.log("Errore nell'aggiornamento del commento", error);
@@ -138,6 +140,8 @@ const updateComment = async (e) => {
 
 // creazione commenti
 
+
+
 const createComment = async (e) => {
   e.preventDefault();
   try {
@@ -148,8 +152,9 @@ const createComment = async (e) => {
           },
           body: JSON.stringify(newComment),
       });
-
-      setComment([...comment, data]);
+     // setComment(prevComments => [...prevComments, data]); 
+      fetchBlog();
+      //setComment([...comment, data]);
       setNewComment({name: "", email: "", comment: ""}); // Resetta il form
   } catch (error) {
       console.log("Errore nella creazione", error);
@@ -161,7 +166,6 @@ const createComment = async (e) => {
 }
 
 
- 
 
 
 

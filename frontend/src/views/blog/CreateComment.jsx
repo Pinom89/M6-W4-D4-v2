@@ -42,7 +42,7 @@ export default function CreateComment({setNewComment, show, handleClose, createC
                     <Form.Control
                     name="comment"
                     placeholder="Inserisci il tuo commento"
-                    aria-label="Email"
+                    aria-label="Comment"
                     aria-describedby="basic-addon2"
                     type='text'
                     required

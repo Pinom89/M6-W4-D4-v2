@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Modal, Form, InputGroup } from 'react-bootstrap';
 
 export default function EditComment({editShow, handleEditClose, updateComment , editComment, handleEditInputChange, setEditComment}) {
-  console.log(editComment)
+ 
     return (
     <> 
    
