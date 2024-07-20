@@ -38,6 +38,8 @@ const corsOptions = {
     // Queste sono gli URL da cui il nostro frontend farà richieste al backend.
     const whitelist = [
       'http://localhost:3000',
+      'https://striveblogmazzilli.vercel.app',
+      'https://m6-w4-d4-v2.onrender.com'
     ];
 
     if (process.env.NODE_ENV === 'development') {
