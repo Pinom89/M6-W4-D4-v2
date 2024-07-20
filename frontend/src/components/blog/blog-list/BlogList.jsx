@@ -66,7 +66,7 @@ if (loading)
       </Row>
     <Row>
       {blogs.filter ((blog) => 
-        (blog.title.toLowerCase().includes(search.toLowerCase()) || (blog.email.toLowerCase()).includes(search.toLowerCase()  )))
+        (blog.title.toLowerCase().includes(search.toLowerCase()) || (blog.author.email.toLowerCase()).includes(search.toLowerCase()  )))
       .map((blog) => 
         <Col
           key={blog._id}
