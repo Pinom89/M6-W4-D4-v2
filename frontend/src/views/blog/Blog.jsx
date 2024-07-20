@@ -63,7 +63,7 @@ const Blog = () => {
       } finally {
         setLoading(false);
       }
-    }, [params, navigate]);
+    }, [params, navigate, API_URL]);
 
     useEffect(() => {
       fetchBlog();

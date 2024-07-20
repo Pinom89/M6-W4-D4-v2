@@ -13,7 +13,7 @@ export default function EditBlog() {
     const { id } = useParams();
     const navigate = useNavigate();
    // const [editnewblog, setEditnewblog] = useState(null);
-
+ const [coverFile, setCoverFile] = useState(null);
  const [dateblog, setDateblog] = useState({
     readTime: { value: '', unit: '' },
     category: '',
@@ -22,6 +22,11 @@ export default function EditBlog() {
     author: authorLogin.email || "",
     content: ''
  });
+
+ const handleFileChange = (e) => {
+  setCoverFile(e.target.files[0]);
+};
+
  useEffect(() => {
   const fetchBlog = async () => {
       try {
@@ -52,28 +57,44 @@ const resetForm = () => {
 // funzione per effettuare la PATCH 
 const editBlogid = async (e) => {
   e.preventDefault();
+
+  const formData = new FormData();
+    
+  // Aggiungi i campi del blog al FormData
+  formData.append('readTime[value]', dateblog.readTime.value);
+  formData.append('readTime[unit]', dateblog.readTime.unit);
+  formData.append('category', dateblog.category);
+  formData.append('title', dateblog.title);
+  formData.append('author[email]', authorLogin.email);
+  formData.append('content', dateblog.content);
+  
+
+  // Aggiungi il file di copertina se presente
+  if (coverFile) {
+      formData.append('cover', coverFile);
+  }
+
+
   try {
       await fetchWithAuth(`${API_URL}/blogs/${id}`, {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dateblog),
+          body: formData,
       });
       alert("Blog modificato con successo");
       setDateblog({
           readTime: { value: '', unit: '' },
           category: '',
           title: '',
-          cover: '',
           author: { email: '' },
           content: ''
       });
+      setCoverFile(null); // Resetta anche il file di copertina
       setTimeout(() => {
           navigate("/");
       }, 2000);
   } catch (err) {
-      console.log("Errore nella creazione", err);
+      console.error("Errore nella modifica", err);
+      alert(`Errore nella modifica: ${err.message}`);
   }
 };
 
@@ -138,13 +159,13 @@ const editBlogid = async (e) => {
             <Form.Group controlId="blog-form" className="mt-3">
               <Form.Label>Cover</Form.Label>
               <Form.Control 
-                  size="lg" 
-                  type="string" 
-                  placeholder="Inserisci link della cover" 
-                  required
-                  value={dateblog.cover}
-                  onChange={(e) => setDateblog({...dateblog, cover: e.target.value})}
-                   />
+                size="lg" 
+                name="cover"
+                type="file" 
+                placeholder="Inserisci link della cover" 
+                required
+                onChange={handleFileChange}
+              />
             </Form.Group>
     
             <Form.Group controlId="blog-form" className="mt-3">

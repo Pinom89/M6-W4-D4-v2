@@ -55,7 +55,7 @@ const [modificaAutore, setModificaAutore] = useState({nome:autore.nome, cognome:
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Procedi alla modifica dei dati</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form onSubmit={modAutore} >

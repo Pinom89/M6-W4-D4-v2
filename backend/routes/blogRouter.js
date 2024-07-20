@@ -93,15 +93,43 @@ router.get("/", async (req, res) => {
   });
   
   // Rotta per aggiornare un Post
-  router.patch("/:id", async (req, res) => {
+  router.patch("/:id", cloudinaryUploader.single("cover"), async (req, res) => {
     try {
-      const updateBlogPosts = await BlogPosts.findByIdAndUpdate(req.params.id, req.body, {
-        new: true, // Restituisce il documento aggiornato anziché quello vecchio
-      });
+      const blogPost = req.body;
+      
+      // Se c'è un nuovo file, aggiorna il campo cover con il nuovo URL di Cloudinary
+      if (req.file) {
+        blogPost.cover = req.file.path;
+      }
+  
+      const updateBlogPosts = await BlogPosts.findByIdAndUpdate(
+        req.params.id, 
+        blogPost,
+        {
+          new: true, // Restituisce il documento aggiornato anziché quello vecchio
+        }
+      );
+  
       if (!updateBlogPosts) {
         // Se il blog post non viene trovato, invia una risposta 404
         return res.status(404).json({ message: "Blog post non trovato" });
       }
+  
+      // CODICE PER INVIO MAIL con MAILGUN (opzionale, se vuoi notificare l'autore dell'aggiornamento)
+      const htmlContent = `
+        <h1>Il tuo post è stato aggiornato!</h1>
+        <p>Ciao ${updateBlogPosts.author.email},</p>
+        <p>Il tuo post "${updateBlogPosts.title}" è stato aggiornato con successo.</p>
+        <p>Categoria: ${updateBlogPosts.category}</p>
+        <p>Grazie per il tuo contributo al blog!</p>
+      `;
+  
+      await sendEmail(
+        updateBlogPosts.author.email,
+        "Il tuo post è stato correttamente aggiornato",
+        htmlContent
+      );
+  
       res.json(updateBlogPosts); // Risponde con i dati dell'utente aggiornato in formato JSON
     } catch (err) {
       res.status(400).json({ message: err.message }); // Gestisce errori di validazione e risponde con un messaggio di errore
