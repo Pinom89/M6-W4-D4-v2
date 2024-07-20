@@ -10,7 +10,7 @@ export default function Search({search, handleInputChange}) {
       type="text"
       value={ search } // inserisco il valore della variabile search
       onChange={ handleInputChange} // avvio funzione handleInputChange
-      placeholder="Cerca Blog..."
+      placeholder="Cerca Blog o email autore..."
       className="mb-5 text-center"
     />
   
