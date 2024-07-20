@@ -9,7 +9,7 @@ import formatDate from '../../services/formatDate.js';
 
 
  export default function Autori() {
-  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   const { authorLogin  } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(1); // Pagina corrente
@@ -35,7 +35,7 @@ import formatDate from '../../services/formatDate.js';
     // Funzione per creare nuovo autore
    
       fetchAutori();
-      } , [currentPage, limit]);
+      } , [currentPage, limit, API_URL]);
     // Funzione per creare nuovo autore
    
         

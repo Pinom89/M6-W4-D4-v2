@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../components/AuthContext.js";
 import fetchWithAuth from '../../services/fetchWithAuth';
 const NewBlogPost = () => {
-  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   const { authorLogin} = useContext(AuthContext);
   // console.log(authorLogin.email);
   // console.log(isLoggedIn);

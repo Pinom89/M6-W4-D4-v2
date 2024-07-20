@@ -13,7 +13,7 @@ export default function Login() {
     const location = useLocation(); //  Accedo ai parametri dell'URL corrente
 
 
-    const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
     
 
     const handleInputChange = (e) => {

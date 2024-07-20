@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Container, Image, Button, Row, Col, ListGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BlogAuthor from "../../components/blog/blog-author/BlogAuthor";
@@ -33,7 +33,7 @@ const Blog = () => {
   const { isLoggedIn } = useContext(AuthContext);
  // stato del modale
 
- const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
+ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   
 
 // stato del commento
@@ -47,7 +47,7 @@ const Blog = () => {
     const [editComment, setEditComment] = useState({name: "", email: "", comment: ""});
 
 
-    const fetchBlog = async () => {
+    const fetchBlog = useCallback(async () => {
       const { id } = params;
       try {
         const data = await fetchWithAuth(`http://localhost:5000/blogs/${id}`);
@@ -63,11 +63,11 @@ const Blog = () => {
       } finally {
         setLoading(false);
       }
-    };
+    }, [params, navigate]);
 
     useEffect(() => {
       fetchBlog();
-    }, [params.id]); 
+    }, [fetchBlog]); 
 
   
 
@@ -116,7 +116,7 @@ const Blog = () => {
 const updateComment = async (e) => {
   e.preventDefault();
   try {
-      const data = await fetchWithAuth(`${API_URL}/blogs/${blog._id}/comments/${editComment._id}`, {
+   await fetchWithAuth(`${API_URL}/blogs/${blog._id}/comments/${editComment._id}`, {
           method: "PATCH",
           headers: {
               "Content-Type": "application/json",
@@ -145,7 +145,7 @@ const updateComment = async (e) => {
 const createComment = async (e) => {
   e.preventDefault();
   try {
-      const data = await fetchWithAuth(`${API_URL}/blogs/${blog._id}/comments`, {
+    await fetchWithAuth(`${API_URL}/blogs/${blog._id}/comments`, {
           method: "POST",
           headers: {
               "Content-Type": "application/json",

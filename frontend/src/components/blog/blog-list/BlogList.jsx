@@ -7,7 +7,7 @@ import fetchWithAuth from '../../../services/fetchWithAuth';
 
 
 const BlogList = ( {search, handleInputChange} ) => {
-  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   const [currentPage, setCurrentPage] = useState(1); // Pagina corrente
   const [totalPages, setTotalPages] = useState(1); // Numero totale di pagine
   const [limit, setLimit] = useState(10); // Numero di utenti per pagina
@@ -32,7 +32,7 @@ const BlogList = ( {search, handleInputChange} ) => {
     }
   };
   fetchBlogs();
-}, [currentPage, limit]); // La dipendenza getAutori non è stata aggiunta come richiesto
+}, [currentPage, limit, API_URL]); // La dipendenza getAutori non è stata aggiunta come richiesto
 
 
 if (loading) 

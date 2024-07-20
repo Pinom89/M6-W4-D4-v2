@@ -9,7 +9,7 @@ function EditAuthor({autori, setAutori, autore}) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 
 // Stato per gestire l'utente in fase di modifica dell'autore

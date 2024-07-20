@@ -8,7 +8,7 @@ export default function EditBlog() {
 
     const { authorLogin } = useContext(AuthContext);
    
-    const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function EditBlog() {
       }
   };
   fetchBlog();
-}, [id]);  // inserisco dipendenza sulla costante getAutori
+}, [id, API_URL]);  // inserisco dipendenza sulla costante getAutori
 
       console.log(dateblog);
 // funzione per resettare i campi

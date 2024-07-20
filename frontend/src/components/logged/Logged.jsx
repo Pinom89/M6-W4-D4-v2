@@ -10,7 +10,7 @@ export default function Logged() {
 
   const { authorLogin, setAuthorLogin } = useContext(AuthContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  const API_URL = (import.meta.env && import.meta.env.URL) || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   const navigate = useNavigate();
 
 
@@ -77,7 +77,7 @@ export default function Logged() {
           if (isLoggedIn) {
             fetchAuthor();
           }
-          }, [ setAuthorLogin, isLoggedIn, setIsLoggedIn, navigate ]);
+          }, [ setAuthorLogin, isLoggedIn, setIsLoggedIn, navigate, API_URL]);
 
   return (
     <div className='d-column justify-content-center align-items-center  mb-2'>
