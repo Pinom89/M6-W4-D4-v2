@@ -93,15 +93,10 @@ router.get("/", async (req, res) => {
   });
   
   // Rotta per aggiornare un Post
-  router.patch("/:id", cloudinaryUploader.single("cover"), async (req, res) => {
+  router.patch("/:id", async (req, res) => {
     try {
       const blogPost = req.body;
-      
-      // Se c'è un nuovo file, aggiorna il campo cover con il nuovo URL di Cloudinary
-      if (req.file) {
-        blogPost.cover = req.file.path;
-      }
-  
+
       const updateBlogPosts = await BlogPosts.findByIdAndUpdate(
         req.params.id, 
         blogPost,
@@ -124,17 +119,22 @@ router.get("/", async (req, res) => {
         <p>Grazie per il tuo contributo al blog!</p>
       `;
   
-      await sendEmail(
-        updateBlogPosts.author.email,
-        "Il tuo post è stato correttamente aggiornato",
-        htmlContent
-      );
-  
+      try {
+        await sendEmail(
+      updateBlogPosts.author.email,
+      "Il tuo post è stato correttamente aggiornato",
+      htmlContent
+       );
+      } catch (emailError) {
+        console.error("Errore durante l'invio dell'email:", emailError.message);
+        // Non facciamo nulla qui, permettiamo al codice di continuare
+      }
       res.json(updateBlogPosts); // Risponde con i dati dell'utente aggiornato in formato JSON
-    } catch (err) {
-      res.status(400).json({ message: err.message }); // Gestisce errori di validazione e risponde con un messaggio di errore
-    }
-  });
+      } catch (err) {
+        res.status(400).json({ message: err.message }); // Gestisce errori di validazione e risponde con un messaggio di errore
+      }
+      });
+
   
   // Rotta per eliminare un Post
   
@@ -193,14 +193,19 @@ router.delete("/:id", async (req, res) => {
     <br>
     <p>Per supporto contattare la seguente email: customersupport@blogposts.com</p>
   `;
-
+  
+   try {
+    
    await sendEmail(
-     blogpost.author.email,
-     // oggetto della email
-     "Il tuo avatar è stato aggiornato con successo",
-     htmlContent
-   );
-   
+    blogpost.author.email,
+    // oggetto della email
+    "Il tuo avatar è stato aggiornato con successo",
+    htmlContent
+    );
+  } catch (emailError) {
+    console.error("Errore durante l'invio dell'email:", emailError.message);
+    // Non facciamo nulla qui, permettiamo al codice di continuare
+  }
    res.status(200).json({ message: "Cover aggiornata con successo", blogpost });
     } catch (err) {
       res.status(400).json({ message: err.message }); // Gestisce errori di validazione e risponde con un messaggio di errore
