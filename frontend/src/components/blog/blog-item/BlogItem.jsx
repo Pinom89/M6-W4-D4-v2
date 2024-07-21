@@ -10,7 +10,8 @@ import { AuthContext } from "../../AuthContext";
 
 const BlogItem = ({ title, cover, _id, author, blogs, setBlogs }) => {
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-  //  console.log(author);
+   console.log(author);
+
   
   const { authorLogin  } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
       alert("Errore durante l'eliminazione del blog"); // Opzionale: notifica l'utente dell'errore
     }
   };
-
+  console.log(author.email);
   return (
     <Card className="blog-card shadow-drop-tl">
       <Link to={`/blog/${_id}`} className="blog-link">
@@ -39,7 +40,7 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
         <Card.Title>{title}</Card.Title>
       </Card.Body>
       <Card.Footer>
-        <BlogAuthor {...author}  />
+        <BlogAuthor email={author.email}  />
       </Card.Footer>
       {isLoggedIn && authorLogin && authorLogin.email === author.email && ( 
       <div className="d-flex justify-content-end gap-3 align-items-center p-3">
