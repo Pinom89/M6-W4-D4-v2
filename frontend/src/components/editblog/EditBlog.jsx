@@ -88,13 +88,15 @@ const editBlogid = async (e) => {
           author: { email: '' },
           content: ''
       });
-      setCoverFile(null); // Resetta anche il file di copertina
-      setTimeout(() => {
-          navigate("/");
-      }, 2000);
+    
   } catch (err) {
       console.error("Errore nella modifica", err);
-      alert(`Errore nella modifica: ${err.message}`);
+      // alert(`Errore nella modifica: ${err.message}`);
+  } finally {
+    setCoverFile(null); // Resetta anche il file di copertina
+    setTimeout(() => {
+        navigate("/");
+    }, 2000);
   }
 };
 
