@@ -4,6 +4,9 @@ import fetchWithAuth from '../../services/fetchWithAuth';
 import { Image, Button } from 'react-bootstrap';
 import './logged.css';
 import {AuthContext} from "../AuthContext";
+import { RiLoginCircleLine } from "react-icons/ri";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+
 
 
 export default function Logged() {
@@ -91,12 +94,12 @@ export default function Logged() {
           {isLoggedIn ? (<Image src={authorLogin.avatar} roundedCircle className='imgprofile' />) : (<Image src="https://media.istockphoto.com/id/1622583937/it/foto/connessioni-di-intelligenza-artificiale-in-testa-cyborg-dimezzata-in-cemento.webp?b=1&s=170667a&w=0&k=20&c=mn9UtEL95V4id1h0KfoNiRDbns6KeefrLSZndUDg4IA=" roundedCircle className='imgprofile' />) }
       
         <Button 
-        variant= {isLoggedIn ? 'outline-danger' : 'outline-secondary'}
+        variant= {isLoggedIn ? 'dark' : 'outline-light'}
         onClick={() => isLoggedIn ? handleLogout() : navigate('/login')}
         >
-          {isLoggedIn ? 'Logout' : 'Login'}
+          {isLoggedIn ?  <RiLogoutCircleRLine /> : <RiLoginCircleLine />}
         </Button>
       </div>
     </div>
   )
-}
+} 

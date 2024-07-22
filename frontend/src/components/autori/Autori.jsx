@@ -5,6 +5,7 @@ import fetchWithAuth from '../../services/fetchWithAuth';
 import EditAuthor from './EditAuthor';
 import { AuthContext } from "../../components/AuthContext.js";
 import formatDate from '../../services/formatDate.js';
+import { ThemeContext } from "../AuthContext.js";
 
 
 
@@ -15,6 +16,8 @@ import formatDate from '../../services/formatDate.js';
   const [currentPage, setCurrentPage] = useState(1); // Pagina corrente
   const [totalPages, setTotalPages] = useState(1); // Numero totale di pagine
   const [limit, setLimit] = useState(10); // Numero di utenti per pagina
+
+  const [tema, setTema] = useContext(ThemeContext);
   
 
 
@@ -54,13 +57,13 @@ import formatDate from '../../services/formatDate.js';
 
   return (
     <>
-    <Container>
+    <Container >
   
       <h2 className='p-2 mb-5 mt-4 text-center'>Lista Autori</h2>
     <Row xs={1} sm={2} md={3} lg={4} className='g-4'>
       {autori.map((autore) => (
         <Col key={autore._id}>
-          <Card  className='author-card shadow-drop-left'>
+          <Card  className='author-card shadow-drop-left'  bg={tema} data-bs-theme={tema} >
             <Card.Img className='author-cover' variant="top" src={autore.avatar} alt={autore.nome + " " + autore.cognome} />
             <Card.Body>
               <Card.Title>{autore.nome} {autore.cognome}</Card.Title>

@@ -17,11 +17,26 @@
 .blog-navbar-add-button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 130px;
+  justify-content: center;
+  min-width: 120px;
   max-height: 40px;
-  margin: 5px 10px;
+  margin: 5px 0;
   text-decoration: none;
   border: white solid 2px;
-  padding: 10px 5px;
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+
+
+@media (max-width: 767px) {
+  .blog-navbar-brand {
+    margin-bottom: 15px;
+  }
+}
+
+.blog-navbar-add-button {
+  font-size: 0.8rem;
+  min-width: 100px;
+  padding: 6px 10px;
 }
