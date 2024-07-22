@@ -17,6 +17,8 @@ import { ThemeContext } from "../AuthContext.js";
   const [totalPages, setTotalPages] = useState(1); // Numero totale di pagine
   const [limit, setLimit] = useState(10); // Numero di utenti per pagina
 
+
+  // creato Context per il tema delle card
   const [tema, setTema] = useContext(ThemeContext);
   
 
@@ -25,6 +27,8 @@ import { ThemeContext } from "../AuthContext.js";
     const [autori, setAutori] = useState([]);
     // Stato per gestire i dati del nuovo autore da creare
     
+
+    // Funzione per richiamare elenco autori
     useEffect(() => {
     const fetchAutori = async () => {
       try {
@@ -34,14 +38,12 @@ import { ThemeContext } from "../AuthContext.js";
       } catch (error) {
         console.log("Errore nella richiesta", error);
       }};
-      
-    // Funzione per creare nuovo autore
+    
    
       fetchAutori();
       } , [currentPage, limit, API_URL]);
-    // Funzione per creare nuovo autore
+    // Funzione per cancellare nuovo autore
    
-        
   const cancellaAutore = async (id) => {
     try {
         await fetchWithAuth(`${API_URL}/authors/${id}`, {
@@ -52,7 +54,7 @@ import { ThemeContext } from "../AuthContext.js";
         console.log("Errore nella cancellazione", error);
     }
 }
-  //funzione per la modifica di un autore
+
  
 
   return (
@@ -63,13 +65,16 @@ import { ThemeContext } from "../AuthContext.js";
     <Row xs={1} sm={2} md={3} lg={4} className='g-4'>
       {autori.map((autore) => (
         <Col key={autore._id}>
+          {/* fornisco be  e data-bs-theme per il tema delle card */}
           <Card  className='author-card shadow-drop-left'  bg={tema} data-bs-theme={tema} >
             <Card.Img className='author-cover' variant="top" src={autore.avatar} alt={autore.nome + " " + autore.cognome} />
             <Card.Body>
               <Card.Title>{autore.nome} {autore.cognome}</Card.Title>
+              {/* inserisco funzione formatDate per formattare la data di nascita */}
               <Card.Text> data di nascita: { formatDate(autore.datadinascita, "it" )}</Card.Text>
               <Card.Text className='pb-4 mb-3 overflow-auto'>Email: {autore.email}</Card.Text>
                 <div className='btn-author'>
+                  {/* il modal EditAuthor e il Button Cancella saranno visibili solo se la funzione sotto rispecchia i valori indicati */}
                 {authorLogin &&isLoggedIn && authorLogin.email === autore.email && (
                     <>
                     {/*dentro EditAuthor è  presente la funzione di mlodifica autore nel modal*/}

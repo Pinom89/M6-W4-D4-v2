@@ -7,6 +7,7 @@ import fetchWithAuth from '../../../services/fetchWithAuth';
 
 
 const BlogList = ( {search, handleInputChange} ) => {
+  // imposto link della API o localhost
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   const [currentPage, setCurrentPage] = useState(1); // Pagina corrente
   const [totalPages, setTotalPages] = useState(1); // Numero totale di pagine
@@ -17,7 +18,7 @@ const BlogList = ( {search, handleInputChange} ) => {
 
  // Stato per memorizzare la lista degli autori
  const [blogs, setBlogs] = useState([]);
-
+// estraggo lista dei blog
  useEffect(() => {
   const fetchBlogs = async () => {
     
@@ -28,14 +29,14 @@ const BlogList = ( {search, handleInputChange} ) => {
     } catch (err) {
       console.log("Errore nella richiesta", err);
     } finally {
-      setTimeout(() => setLoading(false), 3000);
+      setTimeout(() => setLoading(false), 2000);
     }
   };
   fetchBlogs();
-}, [currentPage, limit, API_URL]); // La dipendenza getAutori non è stata aggiunta come richiesto
+}, [currentPage, limit, API_URL]); 
 
 
-if (loading) 
+if (loading)   //  imposto placeholder in attesa che la richiesta avvenga con successo
   return (
     <Container>
       <Row>
@@ -53,7 +54,7 @@ if (loading)
   )
 
 
-  return (
+  return ( //  se la richiesta ha avuto successo nostra componente search bar e blog item
     <Container>
       <Row>
         <Col md={2}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import './placeholder.css'; // Creeremo questo file CSS
-
+// imposto delle card di placeholder che varranno utilizzate al caricamento della pagina
 const PlaceHolder = () => {
   return (
     <Card className="blog-card placeholder-card">

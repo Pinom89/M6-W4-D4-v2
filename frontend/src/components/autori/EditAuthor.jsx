@@ -15,6 +15,7 @@ function EditAuthor({autori, setAutori, autore}) {
 // Stato per gestire l'utente in fase di modifica dell'autore
 const [modificaAutore, setModificaAutore] = useState({nome:autore.nome, cognome:autore.cognome, email:autore.email, datadinascita:autore.datadinascita || null, avatar:autore.avatar});
 
+// funzione per modificare l'autore
   const modAutore = async (e) => {
     e.preventDefault();
     try {
@@ -32,6 +33,7 @@ const [modificaAutore, setModificaAutore] = useState({nome:autore.nome, cognome:
       console.log("Errore nell'aggiornamento", error);
     }
     finally {
+      // inserisco un timer per chiudere la modale
       setTimeout(() => {
         handleClose();
       },1200)

@@ -1,4 +1,5 @@
 
+// creata funzione per permettere di formattare la data in formato gg/mm/aaaa
 const formatDate = (data, paese) => {
   if (!data) return '';
   try {

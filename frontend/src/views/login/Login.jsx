@@ -148,7 +148,7 @@ const handleGoogleLogin = () => {
                         size='md'
                     >
                      Login with  <FcGoogle style={{fontSize: '25px'}}/>        
-                                        </Button>
+                    </Button>
                 </Col>
             </Row>
             

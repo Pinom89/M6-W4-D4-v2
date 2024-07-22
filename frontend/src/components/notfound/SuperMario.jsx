@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+// creo funzione che permette di giocare a Supermario quando si finisce sulla pagina not found ma è stato progettato per finire dopo 10 secondi cosi da non distogliere il focus sulla navigazione
 const SuperMario = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [lives, setLives] = useState(5);

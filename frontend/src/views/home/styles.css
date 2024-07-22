@@ -16,7 +16,7 @@
 
   
 }
-
+/* inserisco animazione */ 
 .flicker-in-2 {
 	-webkit-animation: flicker-in-2 2s linear both;
 	        animation: flicker-in-2 2s linear both;

@@ -111,7 +111,7 @@ const Blog = () => {
         alert("Si è verificato un errore durante l'eliminazione del commento");
     }
 }
-// modifica commento
+//  funzione permodifica commento
 
 const updateComment = async (e) => {
   e.preventDefault();

@@ -10,13 +10,13 @@ import { AuthContext } from "../../AuthContext";
 
 const BlogItem = ({ title, cover, _id, author, blogs, setBlogs }) => {
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-   console.log(author);
+   // console.log(author);
 
-  
+ // tramite il context mi porto gli stati del login cois da utilizzarli nel componente
   const { authorLogin  } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
 
-
+// funzione per cancellare il blog
   const cancellaBlog = async (id) => {
     try {
       await fetchWithAuth(`${API_URL}/blogs/${id}`, {
@@ -30,7 +30,8 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
       alert("Errore durante l'eliminazione del blog"); // Opzionale: notifica l'utente dell'errore
     }
   };
-  console.log(author.email);
+  // console.log(author.email);
+
   return (
     <Card className="blog-card shadow-drop-tl">
       <Link to={`/blog/${_id}`} className="blog-link">
@@ -42,6 +43,7 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
       <Card.Footer>
         <BlogAuthor email={author.email}  />
       </Card.Footer>
+      {/* i pulsanti saranno visibili solo se l'utente è loggato e la mail corrisponde all'email dell'autore del blog */}
       {isLoggedIn && authorLogin && authorLogin.email === author.email && ( 
       <div className="d-flex justify-content-end gap-3 align-items-center p-3">
         <Button as={Link} variant="dark" to={`/edit/${_id}`} className='mx-1'>Inizia Modifica</Button>

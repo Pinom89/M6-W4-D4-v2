@@ -12,7 +12,7 @@ export default function EditBlog() {
 
     const { id } = useParams();
     const navigate = useNavigate();
-   // const [editnewblog, setEditnewblog] = useState(null);
+
 
  const [dateblog, setDateblog] = useState({
     readTime: { value: '', unit: '' },
@@ -22,6 +22,7 @@ export default function EditBlog() {
     author: authorLogin.email || "",
     content: ''
  });
+ // carico i dati del singolo blog da modificare
  useEffect(() => {
   const fetchBlog = async () => {
       try {
@@ -36,7 +37,7 @@ export default function EditBlog() {
 
       console.log(dateblog);
 // funzione per resettare i campi
-
+// funzione per resettare i campi dopo la modifica
 const resetForm = () => {
     setDateblog({
       readTime: { value: 1, unit: 'minuti' },
@@ -91,7 +92,7 @@ const editBlogid = async (e) => {
                 placeholder="Inserisci tempo di lettura in numeri"
                 required
                 className="mb-4"
-                value={dateblog.readTime.value}
+                value={dateblog.readTime.value} 
                 onChange={(e) => setDateblog({
                   ...dateblog,
                   readTime: { ...dateblog.readTime, value: parseInt(e.target.value)}
@@ -153,11 +154,11 @@ const editBlogid = async (e) => {
                  size="lg"
                  type="email"
                  placeholder={authorLogin.email}
+                 //  carico nel placeholder direttamente la mail estratta dell'autore che ha effettuato login
                  readOnly
                 //  required 
                  value={authorLogin.email}
-                //  onChange={(e) => setDateblog({...dateblog,
-                //    author: {...dateblog.author, email: e.target.value}})}
+               // imposto il valore direttamente dalla mail estratta dell'autore che ha effettuato login
                  />
             </Form.Group>
            
