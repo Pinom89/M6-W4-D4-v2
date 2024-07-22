@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import logo1 from "../../assets/logo1.png";
 import "./styles.css";
 import Logged from "../../components/logged/Logged";
-import { AuthContext } from "../../components/AuthContext";
+import { AuthContext, ThemeContext } from "../../components/AuthContext";
+import { IoSunnyOutline } from "react-icons/io5";
+import { FaRegMoon } from "react-icons/fa";
 
 const NavBar = () => {
 
-
+  const [tema, setTema] = useContext(ThemeContext);
   const { authorLogin  } = useContext(AuthContext);
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -65,7 +67,10 @@ const NavBar = () => {
                 </Button>
               )}
               <Logged />  {/* inserisco componente carica Toker e visualizza dati dell'autore loggato o permette di effettuare logout */}
-        </div>
+              <Button className="ms-2" variant="outline-dark" onClick={() =>{tema === 'light' ? setTema('dark') : setTema('light') }}>
+                {tema === 'light' ? <FaRegMoon /> : <IoSunnyOutline />}
+              </Button>
+          </div>
        
         </div>
       </Container>

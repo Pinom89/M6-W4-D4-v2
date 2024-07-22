@@ -6,7 +6,12 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     return (
-        <AuthContext.Provider value={{ authorLogin, setAuthorLogin, isLoggedIn, setIsLoggedIn }}>
+        <AuthContext.Provider 
+            value={{ authorLogin,
+                     setAuthorLogin, 
+                     isLoggedIn,
+                     setIsLoggedIn 
+                    }}>
             {children}
         </AuthContext.Provider>
     )
